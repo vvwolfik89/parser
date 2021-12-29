@@ -1,0 +1,19 @@
+
+<div class="container part_show_container">
+  <div class="row part_row">
+    <div class="col-sm">
+        <p><%= @part.title %></p>
+        <p><%= @part.brand %></p>
+        <p><%= @part.describe %></p>
+        <p><%= @part.detail_num %></p>
+        <p><%= @part.o_e %></p>
+    </div>
+
+    <div class="col-sm">
+      <%= link_to 'Edit', edit_part_path(@part) %>
+    </div>
+    <div class="col-sm">
+    <%= link_to 'All', parts_path %>
+  </div>
+  </div>
+</div>
