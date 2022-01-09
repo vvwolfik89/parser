@@ -10,8 +10,7 @@ gem "rails", "~> 7.0.0"
 gem "sprockets-rails"
 
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.4"
-
+gem "mysql2"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
@@ -30,9 +29,12 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
 
+gem "open-uri"
+
+gem "nokogiri"
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
-
+gem "webpacker"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
@@ -41,6 +43,12 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
+
+gem 'bootstrap', '~> 5.0.0.beta3'
+gem 'bootstrap-tagsinput-rails'
+gem 'popper_js', '~> 2.9.2'
+gem 'jquery-rails'
+gem 'simple_form'
 
 # Use Sass to process CSS
 # gem "sassc-rails"
