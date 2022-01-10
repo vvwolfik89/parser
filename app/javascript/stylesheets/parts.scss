@@ -1,0 +1,21 @@
+.btn-toolbar p {
+  margin: 0 10px;
+}
+.btn-toolbar a h4 {
+  color: white;
+}
+.import_part_link {
+  color: white;
+  &:hover {
+    color: yellow;
+    text-decoration: none;
+  }
+  &:visited{
+    color: white;
+  }
+
+  &:visited:hover{
+    color: yellow;
+  }
+}
+
