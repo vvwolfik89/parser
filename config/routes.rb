@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
+  get 'parts_imports/new'
+  get 'parts_imports/create'
   root "spares#index"
+
+  resources :parts_imports, only: [:new, :create]
 
   get "/spares", to: "spares#index"
 
