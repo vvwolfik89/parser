@@ -1,0 +1,3 @@
+class DataRating < ApplicationRecord
+
+end
