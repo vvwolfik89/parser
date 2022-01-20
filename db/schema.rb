@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_29_192014) do
+ActiveRecord::Schema.define(version: 2022_01_19_112758) do
+
+  create_table "data_ratings", charset: "latin1", force: :cascade do |t|
+    t.bigint "part_id"
+    t.json "data"
+    t.json "currency"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["part_id"], name: "index_data_ratings_on_part_id"
+  end
 
   create_table "parts", charset: "utf8", force: :cascade do |t|
     t.string "title"
@@ -22,4 +31,5 @@ ActiveRecord::Schema.define(version: 2021_12_29_192014) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "data_ratings", "parts"
 end

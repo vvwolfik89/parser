@@ -9,6 +9,12 @@ gem "rails", "~> 7.0.0"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
+gem "rest-client"
+gem "execjs"
+gem 'faker'
+gem 'openssl'
+# gem 'selenium-webdriver'
+
 # Use sqlite3 as the database for Active Record
 gem "mysql2"
 # Use the Puma web server [https://github.com/puma/puma]
