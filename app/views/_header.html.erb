@@ -3,10 +3,18 @@
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-  <div class="navbar-nav">
-    <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="#">Sign out</a>
+  <input class="form-control form-control-dark w-90" type="text" placeholder="Search" aria-label="Search">
+  <div class="navbar-nav" style="display: inline-block">
+    <div class="nav-item text-nowrap" style="display: inline-flex;">
+<!--      <a class="nav-link px-3" href="#">Sign out</a>-->
+      <% if user_signed_in? %>
+        <span>Здравствуйте, <%= current_user.email %></span>
+        <%= link_to 'Выйти', destroy_user_session_path, :method => :delete, class: "nav-link px-3" %>
+      <% else %>
+        <%= link_to 'Войти', new_user_session_path, class: "nav-link px-3" %>
+<!--        <div style="padding: 0.5rem 1rem; font-size: 0.875rem;">или</div>-->
+        <%= link_to 'Зарегистрироваться', new_user_registration_path, class: "nav-link px-3" %>
+      <% end %>
     </div>
   </div>
 </header>
