@@ -15,6 +15,8 @@ gem 'faker'
 gem 'openssl'
 # gem 'selenium-webdriver'
 
+gem 'devise'
+
 # Use sqlite3 as the database for Active Record
 gem "mysql2"
 # Use the Puma web server [https://github.com/puma/puma]
