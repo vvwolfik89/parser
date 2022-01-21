@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
+  devise_for :users
+
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
+
   get 'parts_imports/new'
   get 'parts_imports/create'
-  root "spares#index"
+  root "parts#index"
 
   resources :parts_imports, only: [:new, :create]
 

@@ -44,20 +44,32 @@
 require 'open-uri'
 require 'nokogiri'
 require 'json'
-num = 'GJ6A43980C'
-url = "https://tehnomir.com.ua/index.php?r=product%2Fsearch&SearchForm%5Bcode%5D=#{num}&SearchForm%5BbrandId%5D=&SearchForm%5BprofitLevel%5D=10&SearchForm%5BdaysFrom%5D=&SearchForm%5BdaysTo%5D=&sort=priceOuterPrice&SearchForm%5BcatalogRequest%5D="
-      # "https://tehnomir.com.ua/index.php?r=product%2Fsearch&SearchForm%5Bcode%5D=#{num}&SearchForm%5BbrandId%5D=&SearchForm%5BprofitLevel%5D=10&SearchForm%5BdaysFrom%5D=&SearchForm%5BdaysTo%5D=&sort=priceOuterPrice&SearchForm%5BcatalogRequest%5D="
+# num = 'GJ6A43980C'
+brand_id=''
+num = '21013506060'
+url = "https://tehnomir.com.ua/index.php?r=product%2Fsearch&SearchForm%5Bcode%5D=#{num}&SearchForm%5BbrandId%5D=#{brand_id}&SearchForm%5BprofitLevel%5D=&SearchForm%5BdaysFrom%5D=&SearchForm%5BdaysTo%5D=&sort=priceOuterPrice&SearchForm%5BcatalogRequest%5D="
 html = URI.open(url)
 doc = Nokogiri::HTML(html)
-
-
-js = doc.search('script')[31].text.strip.split("\n")
-curency = doc.at_css('.currency-block').text
-data = JSON.parse(js[34].gsub(/([{,]\s*):([^>\s]+)\s*=>/, '\1"\2"=>').gsub(/var options = /, '').gsub(/;/, ''))
-p data["data"].count
-s = data["data"].reject!{|hash| !hash.has_key?("code")}
-curency_json = JSON.parse(curency.gsub(/ |\n/, '').gsub(/=/, ':"').gsub(/,/, '.').gsub(/;/, '",').gsub(/1USD/, {'1USD' => '{"USD"'}).gsub(/1EUR/, '"EUR"').gsub(/USD$/, 'USD"}'))
-p curency_json['EUR'].class
+#
+# script = doc.search('script')[31]
+#
+# a = if script && !script.text.empty? && doc.at_css('.product-cart-table').text
+#   script = script.text.strip.split("\n")
+#   data_value_str = JSON.parse(script[34].gsub(/([{,]\s*):([^>\s]+)\s*=>/, '\1"\2"=>').gsub(/var options = /, '').gsub(/;/, ''))
+#   data_value = data_value_str["data"].reject! {|hash| !hash.has_key?("code")}
+#
+#   currency = doc.at_css('.currency-block').text
+#   currency_data = JSON.parse(currency.gsub(/ |\n/, '').gsub(/=/, ':"').gsub(/,/, '.').gsub(/;/, '",').gsub(/1USD/, {'1USD' => '{"USD"'}).gsub(/1EUR/, '"EUR"').gsub(/USD$/, 'USD"}'))
+#   OpenStruct.new(
+#     part_id: 1,
+#     value_data: data_value,
+#     currency_data: currency_data
+#   )
+#     end
+a = doc.at_css('.dataTable').css('tbody').css('tr').map do |b|
+  {"#{b.css('td')[0].text}" =>  "#{b.css('td')[3].css('a')[0]["data-brandid"]}"}
+end
+p a
 
 
 
