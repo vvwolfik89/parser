@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_20_213724) do
+
+ActiveRecord::Schema.define(version: 2022_01_21_192703) do
+
+  create_table "brand_infos", charset: "latin1", force: :cascade do |t|
+    t.string "brand_name"
+    t.string "brandid"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
 
   create_table "data_ratings", charset: "latin1", force: :cascade do |t|
     t.bigint "part_id"
