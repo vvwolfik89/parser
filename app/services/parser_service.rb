@@ -11,10 +11,18 @@ class ParserService
 
   def show_data
     parts.map do |part|
+      sleep 3
       data = build_data(part)
-      save_data_rating(data, part) if data.present?
+      saved_value = save_data_rating(data, part) if data.present?
+      [part.id, saved_value]
     end
   end
+
+  # def show_data
+  #     data = build_data(parts.last)
+  #     saved_value = save_data_rating(data, parts.last) if data.present?
+  #     [parts.last.id, saved_value]
+  # end
   #
   # def notify
   #   if self.valid?
@@ -34,16 +42,35 @@ class ParserService
 
   def build_data(part)
     o_e = part.o_e
-    url = "https://tehnomir.com.ua/index.php?r=product%2Fsearch&SearchForm%5Bcode%5D=#{o_e}&SearchForm%5BbrandId%5D=&SearchForm%5BprofitLevel%5D=&SearchForm%5BdaysFrom%5D=&SearchForm%5BdaysTo%5D=&sort=priceOuterPrice&SearchForm%5BcatalogRequest%5D="
+    brandid = BrandInfo.where(brand_name: part.brand).first.brandid if BrandInfo.where(brand_name: part.brand).present?
+    url = "https://tehnomir.com.ua/index.php?r=product%2Fsearch&SearchForm%5Bcode%5D=#{o_e}&SearchForm%5BbrandId%5D=#{brandid}&SearchForm%5BprofitLevel%5D=&SearchForm%5BdaysFrom%5D=&SearchForm%5BdaysTo%5D=&sort=priceOuterPrice&SearchForm%5BcatalogRequest%5D="
     html = URI.open(url)
     doc = Nokogiri::HTML(html)
 
-    script = doc.search('script')[31]
+    if doc.css('.dataTable').present?
+      check_brand_info(doc)
+      brandid = BrandInfo.where(brand_name: part.brand).first.brandid if BrandInfo.where(brand_name: part.brand).present?
+      url = "https://tehnomir.com.ua/index.php?r=product%2Fsearch&SearchForm%5Bcode%5D=#{o_e}&SearchForm%5BbrandId%5D=#{brandid}&SearchForm%5BprofitLevel%5D=&SearchForm%5BdaysFrom%5D=&SearchForm%5BdaysTo%5D=&sort=priceOuterPrice&SearchForm%5BcatalogRequest%5D="
+      html = URI.open(url)
+      doc = Nokogiri::HTML(html)
+    end
+
+
+    if doc.search('script')[31].present? && doc.search('script')[31].content.present?
+      script = doc.search('script')[31]
+      num_array = 34
+    else
+      script = doc.search('script')[32]
+      num_array = 44
+    end
+
+
 
     if script && !script.text.empty? && doc.at_css('.product-cart-table').present?
-      script = script.text.strip.split("\n")
-      data_value_str = JSON.parse(script[34].gsub(/([{,]\s*):([^>\s]+)\s*=>/, '\1"\2"=>').gsub(/var options = /, '').gsub(/;/, ''))
-      data_value = data_value_str["data"].reject! {|hash| !hash.has_key?("code")}
+      script_str = script.text.strip.split("\n")
+      sc_v = script_str.select {|e| e.include? "var options" }.first
+      data_value_str = JSON.parse(sc_v.gsub(/([{,]\s*):([^>\s]+)\s*=>/, '\1"\2"=>').gsub(/var options = /, '').gsub(/;/, ''))
+      data_value = data_value_str["data"].reject! {|hash| !hash.has_key?("code")} if data_value_str.present? && data_value_str["data"] != 0
 
       currency = doc.at_css('.currency-block').text
       currency_data = JSON.parse(currency.gsub(/ |\n/, '').gsub(/=/, ':"').gsub(/,/, '.').gsub(/;/, '",').gsub(/1USD/, {'1USD' => '{"USD"'}).gsub(/1EUR/, '"EUR"').gsub(/USD$/, 'USD"}'))
@@ -61,6 +88,15 @@ class ParserService
       currency: data.currency_data,
       part_id: part.id
     )
-    data_rating.save!
+    data_rating.save
+  end
+
+  def check_brand_info(doc)
+    doc.css('.dataTable').css('tbody').css('tr').map do |b|
+      BrandInfo.new(
+        brand_name: "#{b.css('td')[0].text}",
+        brandid: "#{b.css('td')[3].css('a')[0]["data-brandid"]}"
+      ).save
+    end
   end
 end

@@ -66,7 +66,7 @@ doc = Nokogiri::HTML(html)
 #     currency_data: currency_data
 #   )
 #     end
-a = doc.at_css('.dataTable').css('tbody').css('tr').map do |b|
+a = doc.css('.dataTable').css('tbody').css('tr').map do |b|
   {"#{b.css('td')[0].text}" =>  "#{b.css('td')[3].css('a')[0]["data-brandid"]}"}
 end
 p a
