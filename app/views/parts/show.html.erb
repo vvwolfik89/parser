@@ -1,19 +1,61 @@
 
+<div>
+  <div class="col-sm">
+    <%= link_to 'Edit', edit_part_path(@part) %>
+  </div>
+  <div class="col-sm">
+    <%= link_to 'All', parts_path, style: 'color: #0d6efd;' %>
+  </div>
+  <div class="col-sm">
+    <%= link_to 'Download as Excel', part_path(@part, @data_ratings, format: :xlsx), style: "color: red" %>
+  </div>
+</div>
 <div class="container part_show_container">
   <div class="row part_row">
-    <div class="col-sm">
-        <p><%= @part.title %></p>
-        <p><%= @part.brand %></p>
+    <div id= "part_info" class="col-sm" data_ratings="<%= @data_ratings %>">
+        <p>Описание: <%= @part.title %></p>
+        <p>Брэнд: <%= @part.brand %></p>
         <p><%= @part.describe %></p>
-        <p><%= @part.detail_num %></p>
-        <p><%= @part.o_e %></p>
+        <p>Номер: <%= @part.detail_num %></p>
+        <p>O_E: <%= @part.o_e %></p>
     </div>
 
-    <div class="col-sm">
-      <%= link_to 'Edit', edit_part_path(@part) %>
-    </div>
-    <div class="col-sm">
-    <%= link_to 'All', parts_path %>
-  </div>
+
+    <table id="example" class="stripe row-border order-column" cellspacing="0" width="100%">
+      <thead>
+      <tr>
+
+        <th>НАИМЕНОВАНИЕ</th>
+        <th>Поставщики/предложения</th>
+        <th>ДОСТУПНО</th>
+<!--        <th>ОЖИДАЕТСЯ В ОФИСЕ</th>-->
+        <th>ЦЕНА</th>
+        <th>срок поставки, дней</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @data_ratings.each do |data_rating| %>
+        <tr>
+          <th>
+            <%= data_rating.created_at %>
+          </th>
+        </tr>
+        <% data_rating.data.each do |data| %>
+          <tr>
+
+            <th style="padding-left: 10px"><%= data['name'] %></th>
+            <th style="padding-left: 10px"><%= data['supCode'] %></th>
+            <th style="padding-left: 10px"><%= data['count'] %></th>
+            <!--            <th style="padding-left: 10px"><%#= data['name'] %></th>-->
+            <th style="padding-left: 10px"><%= data['sum'] %></th>
+            <th style="padding-left: 10px"><%= data['hours'] / 24 if data['hours'] %></th>
+
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+
   </div>
 </div>

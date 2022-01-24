@@ -6,7 +6,16 @@ class PartsController < ApplicationController
   end
 
   def show
-    @part = Part.find(params[:id])
+    @part = Part.includes(:data_ratings).find(params[:id])
+    @data_ratings = @part.data_ratings
+    respond_to do |format|
+      format.xlsx {
+        response.headers[
+          'Content-Disposition'
+        ] = "attachment; filename='items.xlsx'"
+      }
+      format.html { render :show }
+    end
   end
 
   def new

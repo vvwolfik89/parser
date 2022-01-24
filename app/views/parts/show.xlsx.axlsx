@@ -1,0 +1,20 @@
+wb = xlsx_package.workbook
+
+styles = {
+  header_style: wb.styles.add_style(b: true, sz: 14),
+  total_style: wb.styles.add_style(b: true, sz: 12),
+  header_table_style: wb.styles.add_style(b: true, sz: 12),
+  }
+
+wb.add_worksheet(name: "#{@part.o_e}-#{@part.created_at.to_date}") do |sheet|
+  # Create the header row
+  sheet.add_row [@part.title, @part.brand, @part.detail_num, @part.o_e]
+  sheet.add_row ["НАИМЕНОВАНИЕ",	"Поставщики/предложения",	"ДОСТУПНО",	"ЦЕНА",	"срок поставки, дней"]
+  # Create entries for each item
+  @data_ratings.each do |data_rating|
+    sheet.add_row [data_rating.created_at]
+    data_rating.data.each do |data|
+        sheet.add_row [data['name'], data['supCode'], data['count'], data['sum'],  "#{data['hours']/24 if data['hours']}"]
+    end
+  end
+end

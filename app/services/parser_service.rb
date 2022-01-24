@@ -19,9 +19,10 @@ class ParserService
   end
 
   # def show_data
-  #     data = build_data(parts.last)
-  #     saved_value = save_data_rating(data, parts.last) if data.present?
-  #     [parts.last.id, saved_value]
+  #   part = parts.find 70
+  #     data = build_data(part)
+  #     saved_value = save_data_rating(data, part) if data.present?
+  #     [part.id, saved_value]
   # end
   #
   # def notify

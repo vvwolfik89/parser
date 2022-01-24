@@ -2,6 +2,8 @@ class DataRating < ApplicationRecord
   validates :currency, :data, presence: true
   validate :check_date_uniq
 
+  belongs_to :part
+
   protected
 
   def check_date_uniq
