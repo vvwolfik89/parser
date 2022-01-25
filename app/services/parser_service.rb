@@ -42,10 +42,12 @@ class ParserService
   protected
 
   def build_data(part)
+    proxy = "http://50.114.128.23:3128"
     o_e = part.o_e
     brandid = BrandInfo.where(brand_name: part.brand).first.brandid if BrandInfo.where(brand_name: part.brand).present?
     url = "https://tehnomir.com.ua/index.php?r=product%2Fsearch&SearchForm%5Bcode%5D=#{o_e}&SearchForm%5BbrandId%5D=#{brandid}&SearchForm%5BprofitLevel%5D=&SearchForm%5BdaysFrom%5D=&SearchForm%5BdaysTo%5D=&sort=priceOuterPrice&SearchForm%5BcatalogRequest%5D="
-    html = URI.open(url)
+    html = URI.open(url, :proxy => proxy)
+    # , :proxy => 'http://(ip_address):(port)')
     doc = Nokogiri::HTML(html)
 
     if doc.css('.dataTable').present?
@@ -59,10 +61,8 @@ class ParserService
 
     if doc.search('script')[31].present? && doc.search('script')[31].content.present?
       script = doc.search('script')[31]
-      num_array = 34
     else
       script = doc.search('script')[32]
-      num_array = 44
     end
 
 

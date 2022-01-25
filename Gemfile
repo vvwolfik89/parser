@@ -40,6 +40,8 @@ gem "redis", "~> 4.0"
 gem "open-uri"
 
 gem "nokogiri"
+
+gem 'proxy_fetcher'
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 gem "webpacker"
