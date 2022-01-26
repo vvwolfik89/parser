@@ -24,7 +24,9 @@ class ParserService
     proxy = "http://50.114.128.23:3128"
     o_e = part.o_e
     url = "https://tehnomir.com.ua/index.php?r=product%2Fsearch&SearchForm%5Bcode%5D=#{o_e}&SearchForm%5BbrandId%5D=&SearchForm%5BprofitLevel%5D=&SearchForm%5BdaysFrom%5D=&SearchForm%5BdaysTo%5D=&sort=priceOuterPrice&SearchForm%5BcatalogRequest%5D="
+
     html = URI.open(url)#, :proxy => proxy)
+
     doc = Nokogiri::HTML(html)
 
     if doc.css('.dataTable').present?
