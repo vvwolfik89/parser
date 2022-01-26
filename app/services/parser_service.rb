@@ -44,15 +44,12 @@ class ParserService
   def build_data(part)
     proxy = "http://50.114.128.23:3128"
     o_e = part.o_e
-    brandid = BrandInfo.where(brand_name: part.brand).first.brandid if BrandInfo.where(brand_name: part.brand).present?
-    url = "https://tehnomir.com.ua/index.php?r=product%2Fsearch&SearchForm%5Bcode%5D=#{o_e}&SearchForm%5BbrandId%5D=#{brandid}&SearchForm%5BprofitLevel%5D=&SearchForm%5BdaysFrom%5D=&SearchForm%5BdaysTo%5D=&sort=priceOuterPrice&SearchForm%5BcatalogRequest%5D="
+    url = "https://tehnomir.com.ua/index.php?r=product%2Fsearch&SearchForm%5Bcode%5D=#{o_e}&SearchForm%5BbrandId%5D=&SearchForm%5BprofitLevel%5D=&SearchForm%5BdaysFrom%5D=&SearchForm%5BdaysTo%5D=&sort=priceOuterPrice&SearchForm%5BcatalogRequest%5D="
     html = URI.open(url) #, :proxy => proxy)
-    # , :proxy => 'http://(ip_address):(port)')
     doc = Nokogiri::HTML(html)
 
     if doc.css('.dataTable').present?
-      check_brand_info(doc)
-      brandid = BrandInfo.where(brand_name: part.brand).first.brandid if BrandInfo.where(brand_name: part.brand).present?
+      brandid = check_brand_info(doc, part.brand) || ''
       url = "https://tehnomir.com.ua/index.php?r=product%2Fsearch&SearchForm%5Bcode%5D=#{o_e}&SearchForm%5BbrandId%5D=#{brandid}&SearchForm%5BprofitLevel%5D=&SearchForm%5BdaysFrom%5D=&SearchForm%5BdaysTo%5D=&sort=priceOuterPrice&SearchForm%5BcatalogRequest%5D="
       html = URI.open(url)
       doc = Nokogiri::HTML(html)
@@ -92,12 +89,13 @@ class ParserService
     data_rating.save
   end
 
-  def check_brand_info(doc)
-    doc.css('.dataTable').css('tbody').css('tr').map do |b|
-      BrandInfo.new(
-        brand_name: "#{b.css('td')[0].text}",
-        brandid: "#{b.css('td')[3].css('a')[0]["data-brandid"]}"
-      ).save
-    end
+  def check_brand_info(doc, brand)
+    brandid = ''
+    doc.css('.dataTable').css('tbody').css('tr').each do |e|
+      if e.css('td')[0].text.gsub(' ', '').include? ("#{brand[1..3]}")
+        brandid = e.css('td')[3].css('a')[0]["data-brandid"]
+      end
+    end.first
+    brandid
   end
 end
