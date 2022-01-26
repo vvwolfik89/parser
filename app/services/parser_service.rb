@@ -28,8 +28,8 @@ class ParserService
     doc = Nokogiri::HTML(html)
 
     if doc.css('.dataTable').present?
-      brand_info = check_brand_info(doc, part.brand) || ''
-      url = "https://tehnomir.com.ua/index.php?r=product%2Fsearch&SearchForm%5Bcode%5D=#{o_e}&SearchForm%5BbrandId%5D=#{brand_info}&SearchForm%5BprofitLevel%5D=&SearchForm%5BdaysFrom%5D=&SearchForm%5BdaysTo%5D=&sort=priceOuterPrice&SearchForm%5BcatalogRequest%5D="
+      brandid = check_brand_info(doc, part.brand) || ''
+      url = "https://tehnomir.com.ua/index.php?r=product%2Fsearch&SearchForm%5Bcode%5D=#{o_e}&SearchForm%5BbrandId%5D=#{brandid}&SearchForm%5BprofitLevel%5D=&SearchForm%5BdaysFrom%5D=&SearchForm%5BdaysTo%5D=&sort=priceOuterPrice&SearchForm%5BcatalogRequest%5D="
       html = URI.open(url)
       doc = Nokogiri::HTML(html)
     end
@@ -61,8 +61,12 @@ class ParserService
   end
 
   def check_brand_info(doc, brand)
-    doc.css('.dataTable').css('tbody').css('tr').select do |e|
-        e.css('td')[3].css('a')[0]["data-brandid"] if e.css('td')[0].text.gsub(' ', '').include? ("#{brand[1..3]}")
+    brandid = ''
+    doc.css('.dataTable').css('tbody').css('tr').each do |e|
+      if e.css('td')[0].text.gsub(' ', '').include? ("#{brand[1..3]}")
+        brandid = e.css('td')[3].css('a')[0]["data-brandid"]
+      end
     end.first
+    brandid
   end
 end
