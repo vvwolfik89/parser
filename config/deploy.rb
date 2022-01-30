@@ -5,7 +5,7 @@ set :application, "parser"
 set :repo_url, "git@github.com:vvwolfik89/parser.git"
 application = 'parser'
 set :rvm_type, :user
-set :rvm_ruby_version, '2.0.0-p353'
+set :rvm_ruby_version, '2.7.0'
 set :deploy_to, '/var/www/apps/parser'
 
 namespace :foreman do
