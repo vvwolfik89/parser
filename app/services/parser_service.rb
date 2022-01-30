@@ -45,7 +45,7 @@ class ParserService
         data_value = data_value_str["data"].reject! {|hash| !hash.has_key?("code")} if data_value_str.present? && data_value_str["data"] != 0
 
         currency = doc.at_css('.currency-block').text
-        currency_data = JSON.parse(currency.gsub(/ |\n/, '').gsub(/=/, ':"').gsub(/,/, '.').gsub(/;/, '",').gsub(/1USD/, {'1USD' => '{"USD"'}).gsub(/1EUR/, '"EUR"').gsub(/USD$/, 'USD"}'))
+        currency_data = JSON.parse(currency.gsub(/' 1USD'/, {' 1USD' => '{"USD"'}).gsub(/ |\n/, '').gsub(/=/, ':"').gsub(/,/, '.').gsub(/;/, '",').gsub(/1EUR/, '"EUR"').gsub(/USD$/, 'USD"}'))
         OpenStruct.new(
           part_id: part.id,
           value_data: data_value,
