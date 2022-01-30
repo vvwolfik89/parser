@@ -1,0 +1,3 @@
+web: bundle exec unicorn_rails -c /var/www/apps/parser/current/config/unicorn.rb -E production
+job1: bundle exec rake resque:work RAILS_ENV=production PIDFILE=/var/www/apps/parser/run/resque1.pid QUEUES=*
+job2: bundle exec rake resque:work RAILS_ENV=production PIDFILE=/var/www/apps/parser/run/resque2.pid QUEUES=*
