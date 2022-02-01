@@ -44,8 +44,9 @@
 yarn-debug.log*
 .yarn-integrity
 
-/config/database.yml # доступ к базе данным
-/Procfile # про него я еще расскажу
-/config/deploy/ # файлы Capistrano
-/shared/ # файлы, которых нет в репозитории, но они будут скопированы на сервер при первом деплое приложения
-/public/system/ # если установлен Paperclip
+/config/database.yml
+/procfile
+/config/deploy/
+/shared/
+/public/system/
+/config/credentials.yml.enc
