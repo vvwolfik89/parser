@@ -6,3 +6,21 @@ production:
   pool: 5
   username: tmvawanr_parser_mysql_user
   password: supersecretpassword
+
+development:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: parser_development
+  pool: 5
+  username: parser_mysql_user
+  password: supersecretpassword
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: parser_test
+  pool: 5
+  username: parser_mysql_user
+  password: supersecretpassword

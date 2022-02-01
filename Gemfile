@@ -103,7 +103,7 @@ group :test do
   gem "webdrivers"
 end
 
-group :production do
+group :production, :development do
   gem "mysql2"
   gem "puma", "5.6.1"
   gem "importmap-rails", "1.0.2"

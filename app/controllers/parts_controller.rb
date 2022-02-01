@@ -2,7 +2,7 @@ class PartsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
 
   def index
-    @parts = Part.all
+    @parts = Part.with_field_keyword(params[:keyword])
   end
 
   def show
@@ -12,7 +12,7 @@ class PartsController < ApplicationController
       format.xlsx {
         response.headers[
           'Content-Disposition'
-        ] = "attachment; filename='items.xlsx'"
+        ] = "attachment; filename=items.xlsx"
       }
       format.html { render :show }
     end

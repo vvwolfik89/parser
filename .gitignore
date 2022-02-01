@@ -44,9 +44,9 @@
 yarn-debug.log*
 .yarn-integrity
 
-/config/database.yml
+config/database.yml
 /procfile
 /config/deploy/
 /shared/
 /public/system/
-/config/credentials.yml.enc
+config/credentials.yml.enc
