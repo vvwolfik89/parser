@@ -5,7 +5,7 @@ Rails.application.configure do
 
   # Code is not reloaded between requests.
   config.cache_classes = true
-  config.secret_key_base = Rails.application.credentials.read
+  config.secret_key_base = Rails.application.credentials.to_s
   config.require_master_key = true
 
   # Eager load code on boot. This eager loads most of Rails and

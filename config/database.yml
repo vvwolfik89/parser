@@ -1,28 +1,3 @@
-# SQLite. Versions 3.8.0 and up are supported.
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem "sqlite3"
-#
-
-development:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  database: parser_development
-  pool: 5
-  username: parser_mysql_user
-  password: supersecretpassword
-
-test:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  database: parser_test
-  pool: 5
-  username: parser_mysql_user
-  password: supersecretpassword
-
 production:
   adapter: mysql2
   encoding: utf8

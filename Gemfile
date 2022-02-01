@@ -18,18 +18,18 @@ gem 'openssl'
 gem 'devise'
 
 # Use sqlite3 as the database for Active Record
-gem "mysql2"
+
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
+
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
+
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails"
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
+
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
@@ -44,7 +44,7 @@ gem "nokogiri"
 gem 'proxy_fetcher'
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
-gem "webpacker"
+
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
@@ -60,7 +60,7 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "roo"
 
 # Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", require: false
+
 
 gem 'bootstrap', '~> 5.0.0.beta3'
 gem 'bootstrap-tagsinput-rails'
@@ -105,4 +105,10 @@ end
 
 group :production do
   gem "mysql2"
+  gem "puma", "5.6.1"
+  gem "importmap-rails", "1.0.2"
+  gem "turbo-rails", "1.0.1"
+  gem "bootsnap", "1.10.2"
+  gem "msgpack", "1.4.4"
+  gem "webpacker"
 end
