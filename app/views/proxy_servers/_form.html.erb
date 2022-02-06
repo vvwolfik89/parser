@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel">
+      <div class="panel-heading">
+        <span class="panel-title">Proxy Server</span>
+      </div>
+      <div class="panel-body">
+        <%= custom_form_for(@proxy_server, bootstrap3_form_options) do |f| %>
+          <%= f.error_notification %>
+
+          <%= f.input :server %>
+          <%= f.input :port %>
+
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-2">
+              <%= f.button :submit, "Save", class: "btn-primary btn-block" %>
+            </div>
+            <div class="col-sm-2">
+              <%= link_to("Cancel", proxy_servers_path, class: "btn btn-default btn-block") %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

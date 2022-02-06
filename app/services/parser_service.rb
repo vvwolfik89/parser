@@ -10,9 +10,12 @@ class ParserService
   validates :parts, presence: true
 
   def show_data
+    # manager = ProxyFetcher::Manager.new
+    # manager.raw_proxies
+
     parts.map do |part|
-      sleep 3
-      data = build_data(part)
+     # proxy = manager.raw_proxies.sample
+      data = build_data(part)#, proxy)
       saved_value = save_data_rating(data, part) if data.present?
       [part.id, saved_value]
     end
@@ -20,12 +23,14 @@ class ParserService
 
   protected
 
-  def build_data(part)
-    proxy = "http://50.114.128.23:3128"
+  def build_data(part)#, proxy)
+
+    # proxy = "42.200.57.252:3128"
+
     o_e = part.o_e
     url = "https://tehnomir.com.ua/index.php?r=product%2Fsearch&SearchForm%5Bcode%5D=#{o_e}&SearchForm%5BbrandId%5D=&SearchForm%5BprofitLevel%5D=&SearchForm%5BdaysFrom%5D=&SearchForm%5BdaysTo%5D=&sort=priceOuterPrice&SearchForm%5BcatalogRequest%5D="
 
-    html = URI.open(url)#, :proxy => proxy)
+    html = URI.open(url)#, :proxy => "http:#{proxy}")
 
     doc = Nokogiri::HTML(html)
 
