@@ -68,7 +68,7 @@ gem 'popper_js', '~> 2.9.2'
 gem 'jquery-rails'
 gem 'simple_form'
 gem 'foreman'
-
+gem "cancancan"
 # Use Sass to process CSS
 # gem "sassc-rails"
 
