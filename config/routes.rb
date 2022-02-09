@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
+  require 'sidekiq/web'
 
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
+  end
+
+  authenticate :user, lambda { |u| u.is_admin? } do
+    mount Sidekiq::Web => '/sidekiq'
   end
 
   # get 'parts_imports/new'

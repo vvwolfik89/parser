@@ -2,12 +2,12 @@
   <div class="position-sticky pt-3">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <%= link_to(parts_path) do %>
-        <a class="nav-link active" aria-current="page" href="#">
+        <%#= link_to(parts_path) do %>
+        <a class="nav-link active" aria-current="page" href="<%= parts_path %>">
           <span data-feather="home"></span>
           Parts
         </a>
-        <% end %>
+        <%# end %>
       </li>
       <li class="nav-item">
         <%= link_to(proxy_servers_path) do %>

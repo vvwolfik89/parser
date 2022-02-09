@@ -17,6 +17,7 @@ gem 'openssl'
 
 gem 'devise'
 
+gem 'sidekiq'
 # Use sqlite3 as the database for Active Record
 
 # Use the Puma web server [https://github.com/puma/puma]
