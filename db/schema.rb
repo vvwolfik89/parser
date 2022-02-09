@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_23_171836) do
+ActiveRecord::Schema.define(version: 2022_02_09_165554) do
 
   create_table "brand_infos", charset: "utf8", force: :cascade do |t|
     t.string "brand_name"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2022_01_23_171836) do
     t.string "o_e"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "own_id"
   end
 
   create_table "users", charset: "utf8", force: :cascade do |t|
