@@ -13,7 +13,11 @@ Rails.application.routes.draw do
 
   get "/spares", to: "spares#index"
 
-  resources :parts
+  resources :parts do
+    collection do
+      get :daily_report
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
