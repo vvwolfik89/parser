@@ -59,6 +59,19 @@ class PartsController < ApplicationController
     end
   end
 
+  def daily_report
+    service = Reports::DailyReportService.new(current_date_range)
+    @value = service.build_data
+    respond_to do |format|
+        format.xlsx {
+          response.headers[
+            'Content-Disposition'
+          ] = "attachment; filename=\"daily_report-#{current_date_range}.xlsx\""
+        }
+        format.html { render 'shared/reports/daily_report', locals: { value: @value } }
+      end
+  end
+
   private
   def resource_params
     params.require(:part).permit(:title, :brand, :describe, :detail_num, :o_e)

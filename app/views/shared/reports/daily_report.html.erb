@@ -1,0 +1,72 @@
+<%#= show_stats_data %>
+
+
+<!--  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">-->
+<!--    <div class="btn-toolbar mb-2 mb-md-0">-->
+<%#= link_to part_path(part) do %>
+<!--        <h4><%#= part.title %></h4>-->
+<%# end %>
+<!--      <p><%#= part.brand %></p>-->
+<!--      <p><%#= part.detail_num %></p>-->
+<!--      <p><%#= part.o_e %></p>-->
+<!--      <p><%#= part.own_id %></p>-->
+<!--      <div class="btn-group me-2">-->
+<%#= link_to 'Edit', edit_part_path(part), class: "btn btn-sm btn-outline-secondary" %>
+<%#= link_to 'Show', part_path(part), class: "btn btn-sm btn-outline-secondary" %>
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<div class="col-sm">
+  <%= link_to 'Download as Excel', daily_report_parts_path(@value, format: :xlsx), style: "color: red" %>
+</div>
+<table id="example" class="stripe row-border order-column" cellspacing="0" width="100%">
+  <thead>
+  <tr>
+
+    <th style="padding-left: 30px">Брэнд</th>
+    <th style="padding-left: 30px">Detail Num</th>
+    <th style="padding-left: 30px">OE</th>
+    <th style="padding-left: 30px">OWN ID</th>
+    <th style="padding-left: 30px">detail number tehnomir</th>
+    <th style="padding-left: 30px">НАИМЕНОВАНИЕ</th>
+    <th style="padding-left: 30px">Поставщики/предложения</th>
+    <th style="padding-left: 30px">ДОСТУПНО</th>
+    <th style="padding-left: 30px">ЦЕНА</th>
+    <th style="padding-left: 30px">срок поставки, дней</th>
+    <th style="padding-left: 30px">Рэйтинг</th>
+    <th style="padding-left: 30px">Количество заказов</th>
+    <th style="padding-left: 30px">Количество отказов</th>
+    <th style="padding-left: 30px">Опозданий</th>
+    <th style="padding-left: 30px">Возвратов</th>
+    <th style="padding-left: 30px">Created_at</th>
+
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @value.each do |data_rating| %>
+    <% data_rating.each do |data_value| %>
+      <% data_value.each do |data| %>
+        <tr>
+          <th style="padding-left: 30px"><%= data.brand %></th>
+          <th style="padding-left: 30px"><%= data.detail_num %></th>
+          <th style="padding-left: 30px"><%= data.o_e %></th>
+          <th style="padding-left: 30px"><%= data.own_id %></th>
+          <th style="padding-left: 30px"><%= data.code %></th>
+          <th style="padding-left: 30px"><%= data.name %></th>
+          <th style="padding-left: 30px"><%= data.supCode %></th>
+          <th style="padding-left: 30px"><%= data.counts %></th>
+          <th style="padding-left: 30px"><%= data.sums %></th>
+          <th style="padding-left: 30px"><%= data.hours %></th>
+          <th style="padding-left: 30px"><%= data.rating %></th>
+          <th style="padding-left: 30px"><%= data.countOrders %></th>
+          <th style="padding-left: 30px"><%= data.countRefused %></th>
+          <th style="padding-left: 30px"><%= data.countLate %></th>
+          <th style="padding-left: 30px"><%= data.countReturn %></th>
+          <th style="padding-left: 30px"><%= data.created_at %></th>
+        </tr>
+      <% end %>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
