@@ -1,0 +1,18 @@
+wb = xlsx_package.workbook
+
+styles = {
+  header_style: wb.styles.add_style(b: true, sz: 14),
+  total_style: wb.styles.add_style(b: true, sz: 12),
+  header_table_style: wb.styles.add_style(b: true, sz: 12),
+  }
+
+wb.add_worksheet(name: "Daily_Report") do |sheet|
+ sheet.add_row ["Брэнд",	"Detail Num",	"OE",	"OWN ID",	"detail number tehnomir", "НАИМЕНОВАНИЕ", "Поставщики/предложения", "ДОСТУПНО", "ЦЕНА", "срок поставки, дней", "Рэйтинг", "Количество заказов", "Количество отказов", "Опозданий", "Возвратов", "Created_at"]
+ @value.each do |data_rating|
+    data_rating.each do |data_value|
+        data_value.each do |data|
+            sheet.add_row [data.brand, data.detail_num, data.o_e, data.own_id,  data.code, data.name, data.supCode, data.counts, data.sums, data.hours, data.rating, data.countOrders, data.countRefused, data.countLate, data.countReturn, data.created_at ]
+        end
+    end
+ end
+end
