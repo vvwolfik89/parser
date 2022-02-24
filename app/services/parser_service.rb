@@ -68,10 +68,10 @@ class ParserService
   def check_brand_info(doc, brand)
     brandid = ''
     doc.css('.dataTable').css('tbody').css('tr').each do |e|
-      if e.css('td')[0].text.gsub(' ', '').include? ("#{brand[1..3]}")
+      if e.css('td')[0].text.gsub(' ', '').upcase.include? ("#{brand[0..2].upcase}")
         brandid = e.css('td')[3].css('a')[0]["data-brandid"]
       end
-    end.first
+    end
     brandid
   end
 end
