@@ -83,6 +83,7 @@ GEM
     bootstrap-tagsinput-rails (0.4.2.1)
       railties (>= 3.1)
     builder (3.2.4)
+    cancancan (3.3.0)
     capistrano (3.16.0)
       airbrussh (>= 1.0.0)
       i18n
@@ -115,6 +116,7 @@ GEM
       caxlsx (>= 3.0)
     childprocess (4.1.0)
     concurrent-ruby (1.1.9)
+    connection_pool (2.2.5)
     crass (1.0.6)
     date (3.2.2)
     debug (1.4.0)
@@ -287,6 +289,10 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
+    sidekiq (6.4.1)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -349,6 +355,7 @@ DEPENDENCIES
   bootsnap (= 1.10.2)
   bootstrap (~> 5.0.0.beta3)
   bootstrap-tagsinput-rails
+  cancancan
   capistrano
   capistrano-bundler
   capistrano-rails
@@ -379,6 +386,7 @@ DEPENDENCIES
   roo
   rubyzip
   selenium-webdriver
+  sidekiq
   simple_form
   sprockets-rails
   stimulus-rails

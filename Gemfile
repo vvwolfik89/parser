@@ -17,6 +17,7 @@ gem 'openssl'
 
 gem 'devise'
 
+gem 'sidekiq'
 # Use sqlite3 as the database for Active Record
 
 # Use the Puma web server [https://github.com/puma/puma]
@@ -68,7 +69,7 @@ gem 'popper_js', '~> 2.9.2'
 gem 'jquery-rails'
 gem 'simple_form'
 gem 'foreman'
-
+gem "cancancan"
 # Use Sass to process CSS
 # gem "sassc-rails"
 

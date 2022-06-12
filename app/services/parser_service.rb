@@ -3,29 +3,32 @@ class ParserService
   require 'nokogiri'
   require 'json'
 
-  include ActiveModel::Model
+  attr_reader :part
 
-  attr_accessor :parts
-
-  validates :parts, presence: true
+  def initialize(part)
+    @part = part
+  end
 
   def show_data
-    parts.map do |part|
-      sleep 3
-      data = build_data(part)
-      saved_value = save_data_rating(data, part) if data.present?
-      [part.id, saved_value]
-    end
+    # manager = ProxyFetcher::Manager.new
+    # manager.raw_proxies
+
+    # proxy = manager.raw_proxies.sample
+    data = build_data(part) #, proxy)
+    save_data_rating(data, part) if data.present?
+      # [part.id, saved_value]
   end
 
   protected
 
-  def build_data(part)
-    proxy = "http://50.114.128.23:3128"
+  def build_data(part) #, proxy)
+
+    # proxy = "42.200.57.252:3128"
+
     o_e = part.o_e
     url = "https://tehnomir.com.ua/index.php?r=product%2Fsearch&SearchForm%5Bcode%5D=#{o_e}&SearchForm%5BbrandId%5D=&SearchForm%5BprofitLevel%5D=&SearchForm%5BdaysFrom%5D=&SearchForm%5BdaysTo%5D=&sort=priceOuterPrice&SearchForm%5BcatalogRequest%5D="
 
-    html = URI.open(url)#, :proxy => proxy)
+    html = URI.open(url) #, :proxy => "http:#{proxy}")
 
     doc = Nokogiri::HTML(html)
 
@@ -55,11 +58,11 @@ class ParserService
   end
 
   def save_data_rating(data, part)
-    DataRating.create(
+    DataRating.create!(
       data: data.value_data || {"message" => "Does not have value"},
       currency: data.currency_data,
       part_id: part.id
-    ).valid?
+    )
   end
 
   def check_brand_info(doc, brand)
